@@ -6,7 +6,7 @@ RUN apk-install ca-certificates ruby-dev build-base jemalloc-dev && \
   echo 'gem: --no-document' >> /etc/gemrc && \
   gem update --system && \
   gem install fluentd -v $FLUENTD_VERSION && \
-  gem install fluent-plugin-td && \
+  fluent-gem install fluent-plugin-td && \
   fluentd --setup /etc/fluent && \
   ulimit -n 65536
 
