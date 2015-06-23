@@ -9,5 +9,5 @@ RUN apk-install ca-certificates ruby-dev build-base jemalloc-dev && \
   gem install fluent-plugin-td && \
   fluentd --setup /etc/fluent
 
-ENV LD_PRELOAD /usr/lib/libjemalloc.so
+ENV JEMALLOC_PATH /usr/lib/libjemalloc.so
 
