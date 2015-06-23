@@ -6,5 +6,6 @@ RUN apk-install ca-certificates ruby-dev build-base && \
   echo 'gem: --no-document' >> /etc/gemrc && \
   gem update --system && \
   gem install fluentd -v $FLUENTD_VERSION && \
+  gem install fluent-plugin-td && \
   fluentd --setup /etc/fluent
 
