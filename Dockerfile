@@ -1,6 +1,9 @@
 FROM gliderlabs/alpine:3.2
 
 ENV FLUENTD_VERSION 0.12.14
+ENV JEMALLOC_PATH /usr/lib/libjemalloc.so
+
+COPY runfluentd /usr/local/bin/runfluentd
 
 RUN apk-install ca-certificates ruby-dev build-base jemalloc-dev && \
   echo 'gem: --no-document' >> /etc/gemrc && \
@@ -9,8 +12,8 @@ RUN apk-install ca-certificates ruby-dev build-base jemalloc-dev && \
   fluent-gem install fluent-plugin-td && \
   fluentd --setup /etc/fluent && \
   mkdir /var/run/fluentd && \
+  chmod 755 /usr/local/bin/runfluentd && \
   ulimit -n 65536
 
-ENV JEMALLOC_PATH /usr/lib/libjemalloc.so
 
-CMD ["fluentd"]
+ENTRYPOINT ["/usr/local/bin/runfluentd"]

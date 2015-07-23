@@ -1,0 +1,58 @@
+#!/bin/sh
+
+name=fluentd
+prog=fluentd
+
+
+if [ -f $JEMALLOC_PATH ]; then
+  export LD_PRELOAD=$JEMALLOC_PATH
+fi
+
+start() {
+  # Set Max number of file descriptors for the safety sake
+  # see http://docs.fluentd.org/en/articles/before-install
+  ulimit -n 65536
+  echo -n "Starting $name: "
+  exec $prog
+  RETVAL=$?
+  echo
+}
+
+reload() {
+  configtest || return $?
+  echo -n "Reloading fluentd: "
+  kill -HUP 1
+  RETVAL=$?
+  echo
+}
+
+stop() {
+  echo -n "Stopping fluentd: "
+  kill -INT 1
+  RETVAL=$?
+  echo
+}
+
+configtest() {
+  $name --dry-run -q
+}
+
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  reload)
+    reload
+    ;;
+  configtest)
+    configtest
+    ;;
+  *)
+    echo "Usage: $prog {start|stop|reload|configtest}"
+    exit 1
+    ;;
+esac
+exit $?
