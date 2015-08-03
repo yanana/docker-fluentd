@@ -1,6 +1,6 @@
 FROM gliderlabs/alpine:3.2
 
-ENV FLUENTD_VERSION 0.12.14
+ENV FLUENTD_VERSION 0.12.15
 ENV JEMALLOC_PATH /usr/lib/libjemalloc.so
 
 COPY runfluentd /usr/local/bin/runfluentd
