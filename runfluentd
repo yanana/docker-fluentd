@@ -4,9 +4,9 @@ name=fluentd
 prog=fluentd
 
 
-if [ -f $JEMALLOC_PATH ]; then
-  export LD_PRELOAD=$JEMALLOC_PATH
-fi
+# if [ -f $JEMALLOC_PATH ]; then
+#   export LD_PRELOAD=$JEMALLOC_PATH
+# fi
 
 start() {
   # Set Max number of file descriptors for the safety sake
