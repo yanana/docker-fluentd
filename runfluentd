@@ -1,7 +1,7 @@
 #!/bin/sh
 
 name=fluentd
-prog=fluentd
+prog='bundle exec fluentd'
 
 
 # if [ -f $JEMALLOC_PATH ]; then
